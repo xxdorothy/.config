@@ -46,7 +46,7 @@ experimental = true
 
 [monorepo]
 config_roots = [
-    "{{ [ env.MISE_MONOREPO_ROOT, 'dorothy' ] | join_path }}",
+    "dorothy",
     # "./.github",
     # "./eval",
 ]
