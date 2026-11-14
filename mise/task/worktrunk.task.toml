@@ -10,18 +10,18 @@
 #
 #
 
-[tasks."wt:list"]
+["wt:list"]
 description = "Details of existing worktrees"
 run         = "wt list"
 alias       = "wtl"
 extends     = "worktrunk"
 
-[tasks."wt:merge"]
+["wt:merge"]
 description = "Merge source and target branches"
 run         = "wt merge"
 extends     = "worktrunk"
 
-[tasks."wt:switch-create"]
+["wt:switch-create"]
 description = """
 Change working directory to worktree of <branch>.
 Create the branch and/or worktree if they do not exist.
