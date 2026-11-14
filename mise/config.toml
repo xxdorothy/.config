@@ -71,16 +71,9 @@ version   = "0.81.0"
 lazy      = true
 lazy_bins = [ "wt" ]
 
-[wrappers.wt]
-command                     = "wt"
-env.WORKTRUNK_WORKTREE_PATH = """
-{{ [
-    env.MISE_MONOREPO_ROOT | canonicalize,
-    env.MISE_PROJECT_ROOT | dirname,
-    usage_branch | replace('/\\', '-')
-    ] |
-join_path }}
-"""
+[env]
+WORKTRUNK_WORKTREE_PATH = "{% raw %}{{ repo_path }}/../{{ branch | sanitize }}{% endraw %}"
+
 # ---------------
 # Task Templates
 # ---------------
