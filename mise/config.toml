@@ -12,6 +12,26 @@
 
 monorepo_root = true
 
+[vars]
+proj_repo_path   = """
+{{ exec(command='git rev-parse --show-toplevel',
+        cache_key='proj_repo_path',
+        cache_duration='1d') }}
+"""
+proj_repo_branch = """
+{{ exec(command='git rev-parse --branches',
+        cache_key='proj_repo_branch',
+        cache_duration='1h') }}
+"""
+proj_repo_origin = """
+{{ exec(command='git remote get-url origin',
+        cache_key='proj_repo_origin',
+        cache_duration='1d') }}
+"""
+proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
+proj_repo_owner  = "{{ vars.proj_repo_origin | dirname | basename }}"
+proj_repo_slug   = "{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}"
+
 [settings]
 experimental = true
 
