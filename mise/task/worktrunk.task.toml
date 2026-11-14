@@ -16,12 +16,21 @@ run         = "wt list"
 alias       = "wtl"
 extends     = "worktrunk"
 raw_args    = true
+usage       = """
+flag "--branches" help="Include branches without worktrees"
+flag "--full"     help="Show CI status and LLM summaries"
+"""
 
 ["wt:merge"]
 description = "Merge source and target branches"
 run         = "wt merge"
 extends     = "worktrunk"
 raw_args    = true
+usage       = """
+arg  "[target]"             help="Target branch (default: default branch)"
+flag "-b --branch <branch>" help="Branch to merge (default: current branch)"
+flag "--no-remove"          help="Keep worktree after merge"
+"""
 
 ["wt:switch-create"]
 description = """
@@ -33,72 +42,7 @@ extends     = "worktrunk"
 raw_args    = true
 alias       = [ "wtc", "wtsc", "wt-new", "wt-create" ]
 usage       = """
-var_min=0 var_max=1
-
-arg "[branch]" {
-    help="Target branch of merge"
-    default="Default branch"
-    descriptions=#true
-}
-flag "-b --branch <branch>" {
-    help="Source branch of merge"
-    default="Current branch"
-    descriptions=#true
-}
-complete "branch" {
-    run="git branch --format='%(refname:short)'"
-}
-
-# -----------
-# Global CLI
-# -----------
-
-# Working Directory
-flag "-C <path>" {
-    help="Working directory to execute against"
-    arg "<path>" {
-        default="Current working directory"
-        complete type="dir"
-    }
-    global=#true
-    description=#true
-}
-
-# User Configuration
-flag "--config <path>" {
-    help="Filepath of user configuration"
-    arg "<path>" {
-        default="~/.config/worktrunk/config.toml"
-        env="WORKTRUNK_CONFIG_PATH"
-        required=#true
-        complete type="path:toml"
-    }   
-    global=#true
-    description=#true
-}
-flag "--config-set <toml>" {
-    help="Config override via inline TOML"
-    arg "<toml>" {
-        required=#true
-    }   
-    global=#true
-    description=#true
-}
-
-# Output
-flag "-v --verbose" {
-    help="Verbose output"
-    count=#true 
-    global=#true
-    description=#true
-    env="WORKTRUNK_VERBOSE" {
-        choices "0" "1" "2"
-    }   
-}
-flag "-y --yes" {
-    help="Pre-emptive confirmation"
-    global=#true
-    description=#true
-}
-
+arg  "<branch>"               help="Branch to create"
+flag "-b --base <base>"       help="Base branch (default: default branch)"
+flag "-x --execute <program>" help="Program to run after switch"
 """
