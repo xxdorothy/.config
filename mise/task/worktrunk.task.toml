@@ -15,11 +15,13 @@ description = "Details of existing worktrees"
 run         = "wt list"
 alias       = "wtl"
 extends     = "worktrunk"
+raw_args    = true
 
 ["wt:merge"]
 description = "Merge source and target branches"
 run         = "wt merge"
 extends     = "worktrunk"
+raw_args    = true
 
 ["wt:switch-create"]
 description = """
@@ -28,6 +30,7 @@ Create the branch and/or worktree if they do not exist.
 """
 run         = "wt switch --create"
 extends     = "worktrunk"
+raw_args    = true
 alias       = [ "wtc", "wtsc", "wt-new", "wt-create" ]
 usage       = """
 var_min=0 var_max=1
