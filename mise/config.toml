@@ -86,11 +86,14 @@ join_path }}
 
 [task_templates.worktrunk]
 dir   = "{{ cwd }}"
+vars  = { branches = "git branch --format='%(refname:short)'" }
 usage = """
-arg     "<branch>" {
-    help="Branch of worktree"
-}
-complete "branch" {
-    run="git branch --format='%(refname:short)'"
-}
+flag "-C <path>"    help="Working directory for this command"
+flag "-v --verbose" help="Verbose output" count=#true
+flag "-y --yes"     help="Skip approval prompts"
+
+complete "path"   type="dir"
+complete "branch" run="{{ vars.branches }}"
+complete "base"   run="{{ vars.branches }}"
+complete "target" run="{{ vars.branches }}"
 """
