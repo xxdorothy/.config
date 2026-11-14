@@ -52,3 +52,16 @@ config_roots = [
 # _eval    = "./eval"
 # _dy_main = "./dorothy/main"
 
+# ------
+# Tools
+# ------
+
+#
+# Worktrunk
+# https://worktrunk.dev/config
+#
+
+[tools."packslip:max-sixty/worktrunk"]
+version = "0.81.0"
+lazy    = true
+
