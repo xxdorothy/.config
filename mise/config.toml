@@ -65,3 +65,13 @@ config_roots = [
 version = "0.81.0"
 lazy    = true
 
+[wrappers.wt]
+command                     = "wt"
+env.WORKTRUNK_WORKTREE_PATH = """
+{{ [
+    env.MISE_MONOREPO_ROOT | canonicalize,
+    env.MISE_PROJECT_ROOT | dirname,
+    usage_branch | replace('/\\', '-')
+    ] |
+join_path }}
+"""
