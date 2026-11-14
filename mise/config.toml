@@ -67,8 +67,9 @@ config_roots = [
 #
 
 [tools."packslip:max-sixty/worktrunk"]
-version = "0.81.0"
-lazy    = true
+version   = "0.81.0"
+lazy      = true
+lazy_bins = [ "wt" ]
 
 [wrappers.wt]
 command                     = "wt"
