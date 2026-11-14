@@ -12,6 +12,11 @@
 
 monorepo_root = true
 
+[task_config]
+includes = [
+    "{{ [ env.MISE_MONOREPO_ROOT, '.config', 'mise', 'tasks', '*.task.toml' ] | join_path }}",
+]
+
 [vars]
 proj_repo_path   = """
 {{ exec(command='git rev-parse --show-toplevel',
@@ -74,4 +79,18 @@ env.WORKTRUNK_WORKTREE_PATH = """
     usage_branch | replace('/\\', '-')
     ] |
 join_path }}
+"""
+# ---------------
+# Task Templates
+# ---------------
+
+[task_templates.worktrunk]
+dir   = "{{ cwd }}"
+usage = """
+arg     "<branch>" {
+    help="Branch of worktree"
+}
+complete "branch" {
+    run="git branch --format='%(refname:short)'"
+}
 """
