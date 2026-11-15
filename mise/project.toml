@@ -16,17 +16,17 @@
 # (the project:link task, run by worktrunk on creation), so mise loads it in
 # that worktree's context: exec() runs inside the worktree and caches per
 # worktree. [env] mirrors [vars] for root tasks and mise mcp, which see only env.
+#
+# Only the worktree path is cached: a directory's toplevel cannot change. The
+# branch and origin can (git switch, git remote add), and an answer cached
+# while empty would outlive the fix; uncached, they cost ~3ms each.
 
 [vars]
 proj_wtree_path  = """{{ exec(command='git rev-parse --show-toplevel',
                              cache_key='proj_wtree_path',
                              cache_duration='1d') }}"""
-proj_repo_branch = """{{ exec(command='git branch --show-current',
-                             cache_key='proj_repo_branch',
-                             cache_duration='1h') }}"""
-proj_repo_origin = """{{ exec(command='git remote get-url origin 2>/dev/null || :',
-                             cache_key='proj_repo_origin',
-                             cache_duration='1d') }}"""
+proj_repo_branch = "{{ exec(command='git branch --show-current') }}"
+proj_repo_origin = "{{ exec(command='git remote get-url origin 2>/dev/null || :') }}"
 proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
 proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
 proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
