@@ -1,0 +1,40 @@
+# vim:set expandtab shiftwidth=4 filetype=toml:
+# SPDX-License-Identifier: GPL-3.0-only
+#:schema https://mise.jdx.dev/schema/mise.json
+#:tombi toml-version = "v1.1.0"
+
+#
+#
+# ~xxdorothy/.config.git
+# ::: :/mise/project.toml
+#
+#
+
+# Identification and metadata of a monorepo project, defined once.
+#
+# Every worktree links this file to .config/mise/conf.d/xxdy-project.local.toml
+# (the project:link task, run by worktrunk on creation), so mise loads it in
+# that worktree's context: exec() runs inside the worktree and caches per
+# worktree. [env] mirrors [vars] for root tasks and mise mcp, which see only env.
+
+[vars]
+proj_wtree_path  = """{{ exec(command='git rev-parse --show-toplevel',
+                             cache_key='proj_wtree_path',
+                             cache_duration='1d') }}"""
+proj_repo_branch = """{{ exec(command='git branch --show-current',
+                             cache_key='proj_repo_branch',
+                             cache_duration='1h') }}"""
+proj_repo_origin = """{{ exec(command='git remote get-url origin 2>/dev/null || :',
+                             cache_key='proj_repo_origin',
+                             cache_duration='1d') }}"""
+proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
+proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
+proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
+
+[env]
+XXDY_PROJ_WTREE_PATH  = "{{ vars.proj_wtree_path }}"
+XXDY_PROJ_REPO_BRANCH = "{{ vars.proj_repo_branch }}"
+XXDY_PROJ_REPO_ORIGIN = "{{ vars.proj_repo_origin }}"
+XXDY_PROJ_REPO_NAME   = "{{ vars.proj_repo_name }}"
+XXDY_PROJ_REPO_OWNER  = "{{ vars.proj_repo_owner }}"
+XXDY_PROJ_REPO_SLUG   = "{{ vars.proj_repo_slug }}"

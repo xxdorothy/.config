@@ -1,0 +1,19 @@
+# vim:set expandtab shiftwidth=4 filetype=toml:
+# SPDX-License-Identifier: GPL-3.0-only
+#:schema https://mise.jdx.dev/schema/mise-task.json
+#:tombi toml-version = "v1.1.0"
+
+#
+#
+# ~xxdorothy/.config.git
+# ::: :/mise/tasks/project.task.toml
+#
+#
+
+# Links ../project.toml into the worktree it runs in; a worktree without
+# .config/mise is not a project and is left alone. The link name matches
+# *.local.*, which projects ignore.
+["project:link"]
+description = "Give the current worktree the monorepo's project metadata"
+dir         = "{{ cwd }}"
+run         = 'p="$(git rev-parse --show-toplevel)/.config/mise"; [ ! -d "$p" ] || { mkdir -p "$p/conf.d" && ln -sfnr "{{ config_root }}/.config/mise/project.toml" "$p/conf.d/xxdy-project.local.toml"; }'
