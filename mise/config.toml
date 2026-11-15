@@ -81,3 +81,7 @@ complete "branch" run="{{ vars.branches }}"
 complete "base"   run="{{ vars.branches }}"
 complete "target" run="{{ vars.branches }}"
 """
+
+# wt writes where the shell should go; shell/cd.zsh acts on it at the prompt.
+[task_templates.worktrunk.env]
+WORKTRUNK_DIRECTIVE_CD_FILE = "{{ env.XXDY_SHELL_CD_FILE | default(value='') }}"
