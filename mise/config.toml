@@ -14,7 +14,7 @@ monorepo_root = true
 
 [task_config]
 includes = [
-    "{{ config_root }}/.config/mise/task/*.task.toml",
+    "{{ config_root }}/.config/mise/tasks/*.task.toml",
 ]
 
 [vars]
