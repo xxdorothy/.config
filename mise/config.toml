@@ -53,9 +53,18 @@ config_roots = [
 # Tasks in dorothy/* extend this template, so their own root is the worktree.
 [task_templates.project.vars]
 proj_git         = "sh -c 'git -C \"$0\" \"$@\" 2>/dev/null || :' '{{ config_root }}'"
-proj_wtree_path  = "{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel') }}"
-proj_repo_branch = "{{ exec(command=vars.proj_git ~ ' branch --show-current') }}"
-proj_repo_origin = "{{ exec(command=vars.proj_git ~ ' remote get-url origin') }}"
+proj_wtree_path  = """
+{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel',
+        cache_key='proj_wtree_path',
+        cache_duration='1d') }}"""
+proj_repo_branch = """
+{{ exec(command=vars.proj_git ~ ' branch --show-current',
+        cache_key='proj_repo_branch',
+        cache_duration='1h') }}"""
+proj_repo_origin = """
+{{ exec(command=vars.proj_git ~ ' remote get-url origin',
+        cache_key='proj_repo_origin',
+        cache_duration='1d') }}"""
 proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
 proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
 proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
@@ -77,9 +86,18 @@ complete "target" run="{{ vars.branches }}"
 [task_templates.worktrunk.vars]
 branches         = "git branch --format='%(refname:short)'"
 proj_git         = "sh -c 'git -C \"$0\" \"$@\" 2>/dev/null || :' '{{ cwd }}'"
-proj_wtree_path  = "{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel') }}"
-proj_repo_branch = "{{ exec(command=vars.proj_git ~ ' branch --show-current') }}"
-proj_repo_origin = "{{ exec(command=vars.proj_git ~ ' remote get-url origin') }}"
+proj_wtree_path  = """
+{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel',
+        cache_key='proj_wtree_path',
+        cache_duration='1d') }}"""
+proj_repo_branch = """
+{{ exec(command=vars.proj_git ~ ' branch --show-current',
+        cache_key='proj_repo_branch',
+        cache_duration='1h') }}"""
+proj_repo_origin = """
+{{ exec(command=vars.proj_git ~ ' remote get-url origin',
+        cache_key='proj_repo_origin',
+        cache_duration='1d') }}"""
 proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
 proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
 proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
