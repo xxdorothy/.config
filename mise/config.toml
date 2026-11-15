@@ -13,12 +13,23 @@
 monorepo_root = true
 
 include = [
-    "{{ config_root }}/.config/mise/hooks.toml",
     "{{ config_root }}/.config/mise/tools/worktrunk.tool.toml",
 ]
 
-# Undoes shell/cd.zsh, sourced by the enter hook in hooks.toml. It lives here
-# because mise does not run leave hooks declared in an included file.
+# Hooks stay in this file, not an include. mise records an included file as
+# loaded, finds it missing from the next directory's configs, and re-parses it
+# alone as a config that was left: rooted at .config/mise, its enter hooks
+# fire on entering that directory, with config_root rendered there.
+
+[[hooks.enter]]
+task = "enter"
+
+# Let tasks move the interactive shell; see shell/cd.zsh.
+[[hooks.enter]]
+shell  = "zsh"
+script = "source {{ config_root }}/.config/mise/shell/cd.zsh"
+
+# Undoes shell/cd.zsh.
 [[hooks.leave]]
 shell  = "zsh"
 script = "(( ! $+functions[_xxdy_shell_cd_unload] )) || _xxdy_shell_cd_unload"
