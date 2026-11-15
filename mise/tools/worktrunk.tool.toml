@@ -20,5 +20,4 @@ lazy      = true
 lazy_bins = [ "wt" ]
 
 [env]
-WORKTRUNK_WORKTREE_PATH           = "{% raw %}{{ repo_path }}/../{{ branch | sanitize }}{% endraw %}"
-WORKTRUNK_PRE_START__XXDY_PROJECT = "mise run -q //:project:link"
+WORKTRUNK_WORKTREE_PATH = "{% raw %}{{ repo_path }}/../{{ branch | sanitize }}{% endraw %}"
