@@ -8,4 +8,4 @@
 #
 #
 
-ceiling_paths = [ "{{ config_source | dirname | dirname }}" ]
+ceiling_paths = [ "{{ config_root | dirname | dirname }}" ]
