@@ -48,27 +48,6 @@ config_roots = [
 # Task Templates
 # ---------------
 
-# proj_* describe the worktree a task works in, through proj_git: a git command
-# run there that prints nothing, rather than failing, outside a repository.
-# Tasks in dorothy/* extend this template, so their own root is the worktree.
-[task_templates.project.vars]
-proj_git         = "sh -c 'git -C \"$0\" \"$@\" 2>/dev/null || :' '{{ config_root }}'"
-proj_wtree_path  = """
-{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel',
-        cache_key='proj_wtree_path',
-        cache_duration='1d') }}"""
-proj_repo_branch = """
-{{ exec(command=vars.proj_git ~ ' branch --show-current',
-        cache_key='proj_repo_branch',
-        cache_duration='1h') }}"""
-proj_repo_origin = """
-{{ exec(command=vars.proj_git ~ ' remote get-url origin',
-        cache_key='proj_repo_origin',
-        cache_duration='1d') }}"""
-proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
-proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
-proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
-
 [task_templates.worktrunk]
 dir   = "{{ cwd }}"
 usage = """
@@ -82,25 +61,8 @@ complete "base"   run="{{ vars.branches }}"
 complete "target" run="{{ vars.branches }}"
 """
 
-# As in the project template, but root tasks run where they were invoked.
 [task_templates.worktrunk.vars]
-branches         = "git branch --format='%(refname:short)'"
-proj_git         = "sh -c 'git -C \"$0\" \"$@\" 2>/dev/null || :' '{{ cwd }}'"
-proj_wtree_path  = """
-{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel',
-        cache_key='proj_wtree_path',
-        cache_duration='1d') }}"""
-proj_repo_branch = """
-{{ exec(command=vars.proj_git ~ ' branch --show-current',
-        cache_key='proj_repo_branch',
-        cache_duration='1h') }}"""
-proj_repo_origin = """
-{{ exec(command=vars.proj_git ~ ' remote get-url origin',
-        cache_key='proj_repo_origin',
-        cache_duration='1d') }}"""
-proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
-proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
-proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
+branches = "git branch --format='%(refname:short)'"
 
 # wt writes where the shell should go; shell/cd.zsh acts on it at the prompt.
 [task_templates.worktrunk.env]
