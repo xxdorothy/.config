@@ -27,5 +27,5 @@ printf '[ %s ]\n' \
 
 printf '  %-12s %-2s\n' \
     "Project:"   "{{ config_root | basename }}" \
-    "Directory:" "${MISE_PROJECT_ROOT//${HOME}/~}"
+    "Directory:" "${MISE_ORIGINAL_CWD//${HOME}/~}"
 """
