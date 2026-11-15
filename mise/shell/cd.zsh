@@ -41,7 +41,7 @@ _xxdy_shell_cd() {
 _xxdy_shell_cd_unload() {
     add-zsh-hook -d precmd  _xxdy_shell_cd
     add-zsh-hook -d zshexit _xxdy_shell_cd_unload
-    rm -f -- $XXDY_SHELL_CD_FILE
+    command rm -f -- $XXDY_SHELL_CD_FILE  # past any rm function of the shell
     unset XXDY_SHELL_CD_FILE _xxdy_shell_cd_owned
     unfunction _xxdy_shell_cd _xxdy_shell_cd_unload
 }
