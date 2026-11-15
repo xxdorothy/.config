@@ -9,41 +9,5 @@
 #
 
 
-[hooks.enter]
-shell  = "{{ env.SHELL | basename }}"
-script = [
-    "mise run enter",
-    "source {{ [{{ config_source | absolute | dirname }}, {{ env.SHELL | basename }}] | join_path }} ",
-    "export MONOREPO_PROJECT_READY=1",
-]
-
-[hooks.leave]
-shell  = "{{ env.SHELL }}"
-script = [ " PROJECT_READY" ]
-
-
-#
-# Tasks: Enter
-#
-
-[tasks.enter]
-description = "Printed upon project directory entry"
-depends     = [ "enter:init", "enter:prepare", "enter:*" ]
-hide        = true
-
-[tasks."enter:welcome"]
-description = "No Place Like Home"
-run         = """
-#!/usr/bin/env bash
-printf '[ %s ]\n' \
-    "Dorothy Time~ ^-^"
-
-printf '%-14s: %-2s\n' \
-    "Project"   "{{  }}" \
-    "Directory" "{{  }}"
-"""
-depends     = [ "env:project" ]
-hide        = true
-
-[tasks."enter:init"]
-description = "Initialisation of local project assets"
+[[hooks.enter]]
+task = "enter"

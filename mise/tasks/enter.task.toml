@@ -1,0 +1,29 @@
+# vim:set expandtab shiftwidth=4 filetype=toml:
+# SPDX-License-Identifier: GPL-3.0-only
+
+#
+#
+# ~xxdorothy/.config.git
+# ::: :/mise/tasks/enter.task.toml
+#
+#
+
+
+[enter]
+description = "Hook enter target"
+depends     = [ "enter:*" ]
+hide        = true
+
+["enter:welcome"]
+description = "No Place Like Home"
+wait_for    = [ "enter:*" ]
+hide        = true
+run         = """
+#!/usr/bin/env bash
+printf '[ %s ]\n' \
+    "Dorothy Time~ ^-^"
+
+printf '%-14s: %-2s\n' \
+    "Project"   "{{  }}" \
+    "Directory" "{{  }}"
+"""

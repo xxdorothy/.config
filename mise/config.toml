@@ -13,6 +13,7 @@
 monorepo_root = true
 
 include = [
+    "{{ config_root }}/.config/mise/hooks.toml",
     "{{ config_root }}/.config/mise/tools/worktrunk.tool.toml",
 ]
 
