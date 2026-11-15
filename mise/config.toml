@@ -52,15 +52,7 @@ experimental = true
 [monorepo]
 config_roots = [
     "dorothy",
-    # "./.github",
-    # "./eval",
 ]
-
-# [monorepo.path_aliases]
-# _dy = "{{ [ env.MISE_MONOREPO_ROOT, 'dorothy' ] | join_path }}"
-# _gh      = "./.github"
-# _eval    = "./eval"
-# _dy_main = "./dorothy/main"
 
 # ------
 # Tools
