@@ -23,13 +23,13 @@ includes = [
 ]
 
 [vars]
-proj_repo_path   = """
+proj_wtree_path  = """
 {{ exec(command='git rev-parse --show-toplevel',
-        cache_key='proj_repo_path',
+        cache_key='proj_wtree_path',
         cache_duration='1d') }}
 """
 proj_repo_branch = """
-{{ exec(command='git rev-parse --branches',
+{{ exec(command='git branch --show-current',
         cache_key='proj_repo_branch',
         cache_duration='1h') }}
 """
