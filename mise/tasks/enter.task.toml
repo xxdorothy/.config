@@ -17,13 +17,15 @@ hide        = true
 ["enter:welcome"]
 description = "No Place Like Home"
 wait_for    = [ "enter:*" ]
+output      = "interleave"
 hide        = true
+quiet       = true
 run         = """
 #!/usr/bin/env bash
 printf '[ %s ]\n' \
     "Dorothy Time~ ^-^"
 
-printf '%-14s: %-2s\n' \
-    "Project"   "{{ config_root | basename }}" \
-    "Directory" "${MISE_ORIGINAL_CWD:-$PWD}"
+printf '%-14s %-2s\n' \
+    "Project:"   "{{ config_root | basename }}" \
+    "Directory:" "${MISE_ORIGINAL_CWD:-$PWD}"
 """
