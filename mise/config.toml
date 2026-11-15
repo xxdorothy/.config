@@ -57,8 +57,8 @@ proj_wtree_path  = "{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel'
 proj_repo_branch = "{{ exec(command=vars.proj_git ~ ' branch --show-current') }}"
 proj_repo_origin = "{{ exec(command=vars.proj_git ~ ' remote get-url origin') }}"
 proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
-proj_repo_owner  = "{{ vars.proj_repo_origin | dirname | basename }}"
-proj_repo_slug   = "{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}"
+proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
+proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
 
 [task_templates.worktrunk]
 dir   = "{{ cwd }}"
@@ -81,8 +81,8 @@ proj_wtree_path  = "{{ exec(command=vars.proj_git ~ ' rev-parse --show-toplevel'
 proj_repo_branch = "{{ exec(command=vars.proj_git ~ ' branch --show-current') }}"
 proj_repo_origin = "{{ exec(command=vars.proj_git ~ ' remote get-url origin') }}"
 proj_repo_name   = "{{ vars.proj_repo_origin | file_stem }}"
-proj_repo_owner  = "{{ vars.proj_repo_origin | dirname | basename }}"
-proj_repo_slug   = "{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}"
+proj_repo_owner  = "{{ vars.proj_repo_origin | replace(from=':', to='/') | dirname | basename }}"
+proj_repo_slug   = "{% if vars.proj_repo_origin %}{{ vars.proj_repo_owner }}/{{ vars.proj_repo_name }}{% endif %}"
 
 # wt writes where the shell should go; shell/cd.zsh acts on it at the prompt.
 [task_templates.worktrunk.env]
