@@ -25,7 +25,7 @@ run         = """
 printf '[ %s ]\n' \
     "Dorothy Time~ ^-^"
 
-printf '  %-14s %-2s\n' \
+printf '  %-12s %-2s\n' \
     "Project:"   "{{ config_root | basename }}" \
     "Directory:" "${MISE_PROJECT_ROOT//${HOME}/~}"
 """
