@@ -11,3 +11,9 @@
 
 [[hooks.enter]]
 task = "enter"
+
+# Let tasks move the interactive shell; see shell/cd.zsh.
+# Its leave hook is in config.toml: mise ignores included leave hooks.
+[[hooks.enter]]
+shell  = "zsh"
+script = "source {{ config_root }}/.config/mise/shell/cd.zsh"

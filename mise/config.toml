@@ -17,6 +17,12 @@ include = [
     "{{ config_root }}/.config/mise/tools/worktrunk.tool.toml",
 ]
 
+# Undoes shell/cd.zsh, sourced by the enter hook in hooks.toml. It lives here
+# because mise does not run leave hooks declared in an included file.
+[[hooks.leave]]
+shell  = "zsh"
+script = "(( ! $+functions[_xxdy_shell_cd_unload] )) || _xxdy_shell_cd_unload"
+
 [task_config]
 includes = [
     "{{ config_root }}/.config/mise/tasks/*.task.toml",
