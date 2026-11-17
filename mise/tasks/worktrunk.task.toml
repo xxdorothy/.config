@@ -12,10 +12,9 @@
 
 ["wt:list"]
 description = "Details of existing worktrees"
-run         = "wt list"
+run         = "{{ vars.wt }} list ${usage_branches:+--branches} ${usage_full:+--full}"
 alias       = "wtl"
 extends     = "worktrunk"
-raw_args    = true
 usage       = """
 flag "--branches" help="Include branches without worktrees"
 flag "--full"     help="Show CI status and LLM summaries"
@@ -23,9 +22,9 @@ flag "--full"     help="Show CI status and LLM summaries"
 
 ["wt:merge"]
 description = "Merge source and target branches"
-run         = "wt merge"
+run         = """{{ vars.wt }} merge ${usage_branch:+--branch "$usage_branch"} \
+${usage_no_remove:+--no-remove} ${usage_target:+"$usage_target"}"""
 extends     = "worktrunk"
-raw_args    = true
 usage       = """
 arg  "[target]"             help="Target branch (default: default branch)"
 flag "-b --branch <branch>" help="Branch to merge (default: current branch)"
@@ -37,9 +36,9 @@ description = """
 Change working directory to worktree of <branch>.
 Create the branch and/or worktree if they do not exist.
 """
-run         = "wt switch --create"
+run         = """{{ vars.wt }} switch --create ${usage_base:+--base "$usage_base"} \
+${usage_execute:+--execute "$usage_execute"} "$usage_branch""""
 extends     = "worktrunk"
-raw_args    = true
 alias       = [ "wtc", "wtsc", "wt-new", "wt-create" ]
 usage       = """
 arg  "<branch>"               help="Branch to create"

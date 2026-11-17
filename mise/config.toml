@@ -74,6 +74,9 @@ complete "target" run="{{ vars.branches }}"
 
 [task_templates.worktrunk.vars]
 branches = "git branch --format='%(refname:short)'"
+# wt and the global flags parsed by usage; %.Ns cuts -v's count to wt's two.
+wt       = """wt ${usage_c:+-C "$usage_c"} \
+${usage_verbose:+"-$(printf %.${usage_verbose}s vv)"} ${usage_yes:+--yes}"""
 
 # wt writes where the shell should go; shell/cd.zsh acts on it at the prompt.
 [task_templates.worktrunk.env]
