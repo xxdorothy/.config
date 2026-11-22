@@ -1,5 +1,6 @@
 # vim:set expandtab shiftwidth=4 filetype=toml:
 # SPDX-License-Identifier: GPL-3.0-only
+#:schema https://raw.githubusercontent.com/jdx/mise/refs/heads/main/schema/miserc.json
 
 #
 #
@@ -8,4 +9,4 @@
 #
 #
 
-ceiling_paths = [ "{{ config_root | dirname | dirname }}" ]
+ceiling_paths = [ "{{ config_root }}" ]

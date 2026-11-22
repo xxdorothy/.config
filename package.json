@@ -1,0 +1,41 @@
+{
+	"name": ".config",
+	"private": true,
+
+	"description": "[An attempt at] Project-wide development environment configuration.",
+	"homepage": "https://github.com/chewygumxx/.config",
+	"repository": "github:chewygumxx/.config",
+
+	"keywords": [
+		"agent",
+		"devenv",
+		"config",
+		"dorothy"
+	],
+	"license": "GPL-3.0-only",
+	"engines": {
+		"bun": ">=1.4.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.6.8",
+		"@chewygumxx/biome-config": "^1.2.0",
+		"@chewygumxx/tombi-config": "^0.0.2",
+		"@types/bun": "^1.4.2",
+		"@chewygumxx/commitlint-config": "^1.1.0",
+		"@chewygumxx/cz-commitlint": "^1.0.2",
+		"@chewygumxx/markdownlint-cli2-config": "^1.1.0",
+		"@chewygumxx/remark-preset": "^1.0.3",
+		"@chewygumxx/yamllint-config": "^1.0.1",
+		"@commitlint/cli": "^21.2.2",
+		"prettier": "^3.9.10",
+		"remark-cli": "^12.0.1"
+	},
+	"peerDependencies": {
+		"typescript": "^7"
+	},
+	"config": {
+		"commitizen": {
+			"path": "@chewygumxx/cz-commitlint"
+		}
+	}
+}

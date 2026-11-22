@@ -49,6 +49,7 @@ experimental = true
 [monorepo]
 config_roots = [
     "dorothy/*",
+    "dorothy.wt/*",
 ]
 
 # ------

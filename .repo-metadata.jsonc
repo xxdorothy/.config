@@ -1,0 +1,28 @@
+// vim:set expandtab shiftwidth=4 filetype=jsonc:
+// SPDX-License-Identifier: GPL-3.0-only
+
+//
+//
+// ~xxdorothy/.config.git
+// ::: :/.repo-metadata.jsonc
+//
+//
+
+{
+    "$schema": "https://raw.githubusercontent.com/chewygumxx/sync-repo-metadata/refs/tags/v2/schema.json",
+    "name": ".config",
+    "owner": "xxdorothy",
+    "slug": "xxdorothy/.config",
+    "default_branch": "main",
+    "description": "[An attempt at] Project-wide development environment configuration.",
+    "category": "config",
+    "topics": ["agent", "devenv", "config", "dorothy"],
+    "visibility": "public",
+    "archived": true,
+    "license": {
+        "filepath": "./LICENSE",
+        "spdx_id": "GPL-3.0-only",
+        "full_name": "GNU General Public License v3.0 only",
+        "url": "https://spdx.org/licenses/GPL-3.0-only"
+    }
+}

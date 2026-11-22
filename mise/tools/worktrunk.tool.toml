@@ -18,6 +18,3 @@
 version   = "0.81.0"
 lazy      = true
 lazy_bins = [ "wt" ]
-
-[env]
-WORKTRUNK_WORKTREE_PATH = "{% raw %}{{ repo_path }}/../{{ branch | sanitize }}{% endraw %}"
